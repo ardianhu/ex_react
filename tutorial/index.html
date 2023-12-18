@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial</title>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <!-- <div id="root"></div> -->
+    <div id="roott"></div>
+    <div id="message"></div>
+    <div id="nested"></div>
+
+    <!-- <script type="text/babel">
+      function Header() {
+        return (
+          <div>
+            <h1>Tutorial Reactjs untuk Pemula</h1>
+            <h2>Panduan step-by-step belajar Reactjs</h2>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<Header />, document.getElementById("root"));
+      </script> -->
+    <script type="text/babel">
+      class Sub extends React.Component {
+        constructor() {
+          super();
+
+          this.state = {
+            title: "Learning Reactjs",
+            subTitle: "Step-by-step learn Reactjs"
+          }
+        }
+
+        changeTitle = () => {
+          this.setState({
+            title: "It was changed"
+          })
+        }
+
+        render() {
+          return (
+            <div>
+              <h1>{this.state.title}</h1>
+              <h2>{this.state.subTitle}</h2>
+              <button onClick={this.changeTitle}>Change Title</button>
+            </div>
+            );
+        }
+      }
+      ReactDOM.render(<Sub />, document.getElementById("roott"));
+    </script>
+    <script type="text/babel">
+      class Message extends React.Component {
+        render() {
+          return (
+            <div>
+              <small>{this.props.sender}</small>
+              <p>{this.props.content}</p>  
+              <hr/>
+            </div>
+          )
+        }
+      }
+      // and we can also set the props value from the outside of the component with variable
+      // var content = "Hello, how are you?"
+      // var sender = "John Doe"
+      // and call it like sender={sender}
+
+      let chat = (
+        <div>
+          <Message sender="John Doe" content="Hello, how are you?" />
+          <Message sender="Jane Doe" content="I'm fine, thank you" />
+          <Message sender="John Doe" content="Great! How about you?" />  
+        </div>
+      )
+
+      ReactDOM.render(chat, document.getElementById("message"));
+    </script>
+    <!-- but sometimes its better to use nested component, or component that used in another component -->
+    <script type="text/babel">
+      class Message extends React.Component {
+        render() {
+          return (
+            <div>
+              <small>{this.props.sender}</small>
+              <p>{this.props.content}</p>  
+              <hr/>
+            </div>
+          )
+        }
+      }
+
+      class Chat extends React.Component {
+        render() {
+          return (
+            <div>
+              <Message sender="Ardian" content="Hello, how are you?" />
+              <Message sender="Ardian" content="I'm fine, thank you" />
+              <Message sender="Ardian" content="Great! How about you?" />  
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(<Chat />, document.getElementById("nested"));
+      // in this example we use Message in ChatBox
+    </script>
+    <!-- and we can use component from separated file like this -->
+    <script src="separate.js" type="text/babel"></script>
+    <script type="text/babel">
+      ReactDOM.render(<Separate />, document.getElementById("nested"));
+    </script>
+    <!-- some how this code is blocked by cors policy -->
+  </body>
+</html>

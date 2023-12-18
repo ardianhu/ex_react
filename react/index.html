@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+
+      function Header({ author }) {
+        return <h1>This is my first React JS {author ? author : "no name"}</h1>;
+      }
+
+      function HomePage() {
+        const [likes, setLikes] = React.useState(0);
+
+        function handleClick() {
+          setLikes(likes + 1);
+        }
+
+        const [value, setValue] = React.useState(0);
+        function plus() {
+          setValue(value + 1);
+          if (value > 9) {
+            setValue("Done!");
+            // document.getElementById("plus").disabled = true;
+            // document.getElementById("minus").disabled = true;
+            // document.getElementById("reset").disabled = false;
+          }
+        }
+        function minus() {
+          setValue(value - 1);
+          if (value === 0) {
+            setValue("Done!");
+            // document.getElementById("minus").disabled = true;
+            // document.getElementById("plus").disabled = true;
+            // document.getElementById("reset").disabled = false;
+          }
+        }
+        function reset() {
+          setValue(0);
+        }
+        const smartphones = ["Xperia 5", "Pixel 4", "iPhone 11 Pro"];
+        return (
+          <div>
+            <Header author="ardian" />
+            <ul>
+              {smartphones.map((smartphone) => (
+                <li key={smartphone}>{smartphone}</li>
+              ))}
+            </ul>
+            <button onClick={handleClick}>like ({likes})</button>
+            <div>
+              <button id="minus" onClick={minus} disabled={(value === "Done!" ? true : false)}>
+                -
+              </button>
+              <span>{value}</span>
+              <button id="plus" onClick={plus} disabled={value === "Done!" ? true : false}>
+                +
+              </button>
+              <br />
+              <button id="reset" onClick={reset} disabled={value === "Done!" ? false : true}>
+                Reset
+              </button>
+            </div>
+          </div>
+        );
+      }
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>
